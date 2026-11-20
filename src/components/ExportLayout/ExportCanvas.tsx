@@ -151,8 +151,8 @@ export function ExportCanvas({ pageRef, clearAllRef }: ExportCanvasProps) {
           cursorRadius={400}
           cursorForce={0.2}
           waveAmplitude={2}
-          gradientFrom="#009460"
-          gradientTo="#FCD116"
+          gradientFrom="#FCD116"
+          gradientTo="#009460"
           glowColor="#ce112727"
         />
       </div>

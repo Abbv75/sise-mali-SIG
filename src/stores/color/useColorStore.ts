@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 
 export const CHART_COLORS = {
+  jaune: { stroke: '#FCD116', fill: '#FCD116', label: 'Jaune' },
   rouge: { stroke: '#CE1126', fill: '#CE1126', label: 'Rouge' },
   vert: { stroke: '#009460', fill: '#009460', label: 'Vert' },
   blanc: { stroke: '#FFFFFF', fill: '#FFFFFF', label: 'Blanc' },
@@ -8,10 +9,15 @@ export const CHART_COLORS = {
 } as const
 
 export const HEADER_COLORS = {
-  guinea_rouge: { bg: '#CE1126', text: '#FFFFFF', label: 'Guinée Rouge' },
-  guinea_vert: { bg: '#009460', text: '#FFFFFF', label: 'Guinée Vert' },
-  guinea_white: { bg: '#FFFFFF', text: '#000000', label: 'Guinée Blanc' },
+  mali_jaune: { bg: '#FCD116', text: '#000000', label: 'Mali Jaune' },
+  mali_vert: { bg: '#009460', text: '#FFFFFF', label: 'Mali Vert' },
+  mali_rouge: { bg: '#CE1126', text: '#FFFFFF', label: 'Mali Rouge' },
+  white: { bg: '#FFFFFF', text: '#000000', label: 'Blanc' },
   slate: { bg: '#1e293b', text: '#f1f5f9', label: 'Slate' },
+  // Rétrocompatibilité
+  guinea_vert: { bg: '#FCD116', text: '#000000', label: 'Mali Jaune' },
+  guinea_rouge: { bg: '#CE1126', text: '#FFFFFF', label: 'Mali Rouge' },
+  guinea_white: { bg: '#FFFFFF', text: '#000000', label: 'Blanc' },
 } as const
 
 export type ChartColorKey = keyof typeof CHART_COLORS
@@ -19,9 +25,9 @@ export type HeaderColorKey = keyof typeof HEADER_COLORS
 
 // ─── Defaults ─────────────────────────────────────────────────────────────────
 
-const DEFAULT_COLOR: ChartColorKey = 'rouge'
+const DEFAULT_COLOR: ChartColorKey = 'jaune'
 const DEFAULT_COLOR2: ChartColorKey = 'vert'
-const DEFAULT_HEADER_COLOR: HeaderColorKey = 'guinea_vert'
+const DEFAULT_HEADER_COLOR: HeaderColorKey = 'mali_jaune'
 
 const CHART_STORAGE_KEY = 'app-chart-color'
 const CHART_STORAGE_KEY2 = 'app-chart-color-2'
@@ -111,7 +117,6 @@ const getStoredHeaderColor = (): HeaderColorKey => {
 // ─── Store ────────────────────────────────────────────────────────────────────
 
 export const useColorStore = create<ColorState>(() => {
-
   const color = getStoredChartColor(CHART_STORAGE_KEY, DEFAULT_COLOR)
   const color2 = getStoredChartColor(CHART_STORAGE_KEY2, DEFAULT_COLOR2)
   const headerColor = getStoredHeaderColor()

@@ -40,9 +40,9 @@ export function ZoneElement() {
         const isShapeMode = style.displayMode === 'shape' && hasShapefile
 
         const shapeStyle = {
-          fillColor: style.fillColor || '#009460',
-          fillOpacity: style.fillOpacity ?? 0.2,
-          color: style.borderColor || '#009460',
+          fillColor: style.fillColor || '#FCD116',
+          fillOpacity: style.fillOpacity ?? 0.25,
+          color: style.borderColor || '#D4AC0D',
           weight: style.borderWeight ?? 2,
         }
 

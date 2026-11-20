@@ -39,7 +39,7 @@ export function ExportTopBar({ onExportPng, onExportPdf, onExportWord, onResetVi
           min={400}
           max={5000}
           onChange={(e) => setPageSize(Number(e.target.value), pageHeight)}
-          className="w-20 bg-white/10 border border-white/20 rounded px-2 py-1 text-center text-white text-xs focus:outline-none focus:ring-1 focus:ring-[#009460]"
+          className="w-20 bg-white/10 border border-white/20 rounded px-2 py-1 text-center text-white text-xs focus:outline-none focus:ring-1 focus:ring-[#FCD116]"
         />
         <span className="text-white/40">×</span>
         <input
@@ -48,7 +48,7 @@ export function ExportTopBar({ onExportPng, onExportPdf, onExportWord, onResetVi
           min={300}
           max={5000}
           onChange={(e) => setPageSize(pageWidth, Number(e.target.value))}
-          className="w-20 bg-white/10 border border-white/20 rounded px-2 py-1 text-center text-white text-xs focus:outline-none focus:ring-1 focus:ring-[#009460]"
+          className="w-20 bg-white/10 border border-white/20 rounded px-2 py-1 text-center text-white text-xs focus:outline-none focus:ring-1 focus:ring-[#FCD116]"
         />
         <span className="text-white/50">px</span>
 
@@ -82,7 +82,7 @@ export function ExportTopBar({ onExportPng, onExportPdf, onExportWord, onResetVi
       {/* ── Droite : exporter ── */}
       <div className="flex items-center gap-2 bg-white/5 p-1 rounded-lg">
         {isExporting && (
-          <span className="text-xs text-[#009460] font-medium flex items-center gap-1.5 pr-2">
+          <span className="text-xs text-[#FCD116] font-medium flex items-center gap-1.5 pr-2">
             <Loader2 className="w-3.5 h-3.5 animate-spin" />
             Création...
           </span>
@@ -90,7 +90,7 @@ export function ExportTopBar({ onExportPng, onExportPdf, onExportWord, onResetVi
         <button
           onClick={onExportPng}
           disabled={isExporting}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md font-semibold text-xs text-white transition-all disabled:opacity-50 bg-[#009460] hover:bg-[#007a4f]"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md font-bold text-xs text-slate-900 transition-all disabled:opacity-50 bg-[#FCD116] hover:bg-[#e5bc10]"
           title="Exporter en image"
         >
           <FileImage className="w-3.5 h-3.5" /> PNG

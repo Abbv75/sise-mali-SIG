@@ -17,9 +17,9 @@ export function LegendeItem({ item }: LegendeItemProps) {
         <div 
           className="rounded-sm shrink-0"
           style={{ 
-            backgroundColor: style.fillColor || '#009460', 
-            opacity: style.fillOpacity ?? 0.2,
-            border: `${Math.max(1, (style.borderWeight ?? 2) / 2)}px solid ${style.borderColor || '#009460'}`,
+            backgroundColor: style.fillColor || '#FCD116', 
+            opacity: style.fillOpacity ?? 0.25,
+            border: `${Math.max(1, (style.borderWeight ?? 2) / 2)}px solid ${style.borderColor || '#D4AC0D'}`,
             width: 24, 
             height: 24 
           }}

@@ -10,13 +10,13 @@ export const DEFAULT_STYLE: MapElementStyle = {
 
 export const DEFAULT_ZONE_STYLE: MapElementStyle = {
   iconName: 'layers',
-  color: '#ffffff',
-  bgColor: '#009460',
+  color: '#000000',
+  bgColor: '#FCD116',
   size: 28,
   displayMode: 'shape', // Par défaut pour les zones
-  fillColor: '#009460',
-  fillOpacity: 0.2,
-  borderColor: '#009460',
+  fillColor: '#FCD116',
+  fillOpacity: 0.25,
+  borderColor: '#D4AC0D',
   borderWeight: 2,
 }
 

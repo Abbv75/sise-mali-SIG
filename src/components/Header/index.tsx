@@ -23,27 +23,27 @@ export function Header({ forceShow }: HeaderProps = {}) {
           style={{ clipPath: 'polygon(0 0, 100% 0, 320px 100%, 0 100%)' }}
         />
         <div className="relative h-[90px] flex items-center justify-center">
-          {/* Les logos sont légèrement plus grands pour occuper l'espace */}
+          {/* Logos Carte et Armoiries du Mali */}
           <LogoGroup logoHeight={70} className="gap-3 md:gap-4 pb-1" />
         </div>
       </div>
 
-      {/* 2. Zone Droite (Textes & Drapeau) */}
-      <div className=" bg-[#009460] flex-1 h-[70px] flex items-end justify-end pr-3 z-10 relative">
+      {/* 2. Zone Droite (Textes & Drapeau) - Thème Jaune du drapeau */}
+      <div className="bg-[#FCD116] flex-1 h-[70px] flex items-end justify-end pr-3 z-10 relative">
 
         <div className="flex w-full flex-col items-end justify-center text-right mr-[-3px]">
           <div className="pr-3 pb-1">
-            <h1 className="text-white text-[22px] md:text-[26px] font-black tracking-wide drop-shadow-md leading-tight">
+            <h1 className="text-slate-900 text-[22px] md:text-[26px] font-black tracking-wide leading-tight drop-shadow-sm">
               Module SIG du projet SISE-Mali
             </h1>
-            <p className="text-white/95 text-[11px] md:text-[13px] font-bold tracking-wide mt-0.5 drop-shadow-sm">
+            <p className="text-slate-800/90 text-[11px] md:text-[13px] font-bold tracking-wide mt-0.5">
               Projection des données provenant du module de suivi-évaluation
             </p>
           </div>
           <div style={{
             width: '100%',
             height: '4px',
-            background: '#CE1126'
+            background: '#009460'
           }} />
         </div>
 

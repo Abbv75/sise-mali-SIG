@@ -17,9 +17,9 @@ export function LivePreview({ isShapeMode, style, PreviewIcon }: LivePreviewProp
           <div 
             className="w-10 h-10 rounded-sm"
             style={{ 
-              backgroundColor: style.fillColor || '#009460', 
-              opacity: style.fillOpacity ?? 0.2,
-              border: `${style.borderWeight ?? 2}px solid ${style.borderColor || '#009460'}`
+              backgroundColor: style.fillColor || '#FCD116', 
+              opacity: style.fillOpacity ?? 0.25,
+              border: `${style.borderWeight ?? 2}px solid ${style.borderColor || '#D4AC0D'}`
             }}
           />
         ) : (

@@ -52,7 +52,7 @@ export function ZoneSection() {
           title={allZonesSelected ? 'Tout désélectionner' : 'Tout sélectionner'}
         >
           {allZonesSelected ? (
-            <CheckSquare className="w-3.5 h-3.5 text-[#009460]" />
+            <CheckSquare className="w-3.5 h-3.5 text-[#FCD116]" />
           ) : (
             <Square className="w-3.5 h-3.5 text-white/40" />
           )}
@@ -68,7 +68,7 @@ export function ZoneSection() {
               placeholder="Rechercher une zone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-md pl-8 pr-3 py-1.5 text-xs text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-[#009460] transition-shadow"
+              className="w-full bg-white/5 border border-white/10 rounded-md pl-8 pr-3 py-1.5 text-xs text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-[#FCD116] transition-shadow"
             />
           </div>
 

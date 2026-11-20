@@ -36,7 +36,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         source: "dist/*"
-        target: "/var/www/ruche-sectoriel.net/carto/" # <-- Chemin à vérifier
+        target: "/var/www/sise-mali.net/carto/" # <-- Chemin à vérifier
         strip_components: 1
 
     - name: 🔧 Set directory permissions

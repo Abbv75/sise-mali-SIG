@@ -21,7 +21,7 @@ function ToolButton({ icon: Icon, label, active, onClick, danger }: ToolButtonPr
           className={cn(
             'flex flex-col items-center justify-center gap-1 w-12 h-12 rounded-lg transition-all text-xs',
             active
-              ? 'bg-[#009460] text-white shadow-lg'
+              ? 'bg-[#FCD116] text-slate-900 font-bold shadow-lg'
               : danger
               ? 'text-red-400 hover:bg-red-500/20'
               : 'text-white/60 hover:bg-white/10 hover:text-white'

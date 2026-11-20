@@ -81,7 +81,7 @@ export function LegendWidget({ onClose }: LegendWidgetProps) {
 
   // ── Couleurs par type ─────────────────────────────────────────────────────
   const COLOR_MAP: Record<string, string> = {
-    zones: '#009460',
+    zones: '#FCD116',
     localites: '#CE1126',
   }
 
@@ -107,15 +107,15 @@ export function LegendWidget({ onClose }: LegendWidgetProps) {
       <div
         onMouseDown={onDragStart}
         className="flex items-center justify-between px-2 py-1.5 cursor-grab active:cursor-grabbing select-none"
-        style={{ background: '#009460' }}
+        style={{ background: '#FCD116' }}
       >
         <div className="flex items-center gap-1.5">
-          <GripHorizontal className="w-3 h-3 text-white/60" />
-          <span className="text-white text-[10px] font-bold uppercase tracking-wider">Légende</span>
+          <GripHorizontal className="w-3 h-3 text-slate-800" />
+          <span className="text-slate-900 text-[10px] font-bold uppercase tracking-wider">Légende</span>
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); onClose() }}
-          className="text-white/70 hover:text-white transition-colors"
+          className="text-slate-800 hover:text-black transition-colors"
         >
           <X className="w-3 h-3" />
         </button>

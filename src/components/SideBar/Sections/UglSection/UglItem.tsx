@@ -38,10 +38,10 @@ export function UglItem({ ugl, isSelected, toggleUgl }: UglItemProps) {
         <button
           className={cn(
             "w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors",
-            isSelected ? "border-[#009460] bg-[#009460]" : "border-white/40 hover:border-white/60"
+            isSelected ? "border-[#FCD116] bg-[#FCD116]" : "border-white/40 hover:border-white/60"
           )}
         >
-          {isSelected && <Eye className="w-3 h-3 text-white" />}
+          {isSelected && <Eye className="w-3 h-3 text-black" />}
         </button>
 
         <div className="flex items-center justify-center shrink-0 w-5 h-5 rounded" style={{ backgroundColor: displayColor }}>

@@ -33,7 +33,7 @@ export function ZoneItem({ zone, isSelected, toggleZone }: ZoneItemProps) {
         <div className="flex items-center gap-2.5 min-w-0 pointer-events-none">
           <div
             className="w-2 h-2 rounded-full flex-shrink-0"
-            style={{ backgroundColor: isSelected ? '#009460' : 'rgba(255,255,255,0.2)' }}
+            style={{ backgroundColor: isSelected ? '#FCD116' : 'rgba(255,255,255,0.2)' }}
           />
           <div className="flex-1 min-w-0 text-sm font-medium text-white/95 truncate">
             {zone.nom_zone}
@@ -58,7 +58,7 @@ export function ZoneItem({ zone, isSelected, toggleZone }: ZoneItemProps) {
               checked={isSelected}
               disabled={!hasGeometry}
               onCheckedChange={() => {}}
-              className={isSelected ? '!bg-[#009460]' : ''}
+              className={isSelected ? '!bg-[#FCD116]' : ''}
             />
           </div>
         </div>
