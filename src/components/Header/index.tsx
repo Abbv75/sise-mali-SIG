@@ -28,27 +28,30 @@ export function Header({ forceShow }: HeaderProps = {}) {
         </div>
       </div>
 
-      {/* 2. Zone Droite (Textes & Drapeau) - Thème Jaune du drapeau */}
-      <div className="bg-[#FCD116] flex-1 h-[70px] flex items-end justify-end pr-3 z-10 relative">
+      {/* 2. Zone Droite (Textes & Drapeau) - Effet Or avec motif de grain */}
+      <div className="bg-gold-grain flex-1 h-[70px] flex items-end justify-end pr-3 z-10 relative shadow-inner">
 
-        <div className="flex w-full flex-col items-end justify-center text-right mr-[-3px]">
+        <div className="flex w-full flex-col items-end justify-center text-right mr-[-3px] relative z-10">
           <div className="pr-3 pb-1">
-            <h1 className="text-slate-900 text-[22px] md:text-[26px] font-black tracking-wide leading-tight drop-shadow-sm">
+            <h1 className="text-slate-950 text-[22px] md:text-[26px] font-black tracking-wide leading-tight drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)]">
               Module SIG du projet SISE-Mali
             </h1>
-            <p className="text-slate-800/90 text-[11px] md:text-[13px] font-bold tracking-wide mt-0.5">
+            <p className="text-slate-900 text-[11px] md:text-[13px] font-extrabold tracking-wide mt-0.5 drop-shadow-[0_1px_1px_rgba(255,255,255,0.4)]">
               Projection des données provenant du module de suivi-évaluation
             </p>
           </div>
           <div style={{
             width: '100%',
             height: '4px',
-            background: '#009460'
+            background: '#009460',
+            boxShadow: '0 1px 2px rgba(0,0,0,0.15)'
           }} />
         </div>
 
         {/* Drapeau Malien (Hauteur partielle avec bords arrondis à gauche) */}
-        <Flag />
+        <div className="relative z-10 h-full flex items-end">
+          <Flag />
+        </div>
       </div>
     </header>
   )
