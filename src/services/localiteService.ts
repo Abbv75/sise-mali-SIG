@@ -11,3 +11,5 @@ export const useGetLocalites = () => {
     },
   })
 }
+
+export { useGetNiveauxLocaliteConfig } from './niveauLocaliteService'

@@ -1,10 +1,12 @@
 import { useState, useMemo } from 'react'
 import type { Localite } from '@/types/localite'
+import type { NiveauLocalite } from '@/types/niveauLocalite'
 
 export function useLocalitesTabs(
   localitesRaw: Localite[], 
   selectedLocaliteIds: Set<number>, 
-  toggleLocalite: (id: number) => void
+  toggleLocalite: (id: number) => void,
+  niveauxConfig: NiveauLocalite[] = []
 ) {
   const localiteGroups = useMemo(() => {
     const groups: Record<string, Localite[]> = {}
@@ -13,7 +15,8 @@ export function useLocalitesTabs(
       if (loc.niveau_loca && typeof loc.niveau_loca === 'object' && 'libelle_nlc' in loc.niveau_loca) {
         levelName = loc.niveau_loca.libelle_nlc
       } else if (typeof loc.niveau_loca === 'string' || typeof loc.niveau_loca === 'number') {
-        levelName = `Niveau ${loc.niveau_loca}`
+        const found = niveauxConfig.find(c => c.id_nlc === loc.niveau_loca || c.nombre_nlc === loc.niveau_loca)
+        levelName = found ? found.libelle_nlc : `Niveau ${loc.niveau_loca}`
       }
       
       if (!groups[levelName]) {
@@ -22,9 +25,19 @@ export function useLocalitesTabs(
       groups[levelName].push(loc)
     })
     return groups
-  }, [localitesRaw])
+  }, [localitesRaw, niveauxConfig])
 
-  const availableTabs = Object.keys(localiteGroups).sort()
+  const availableTabs = useMemo(() => {
+    const orderMap = new Map<string, number>()
+    niveauxConfig.forEach(c => orderMap.set(c.libelle_nlc, Number(c.nombre_nlc || 0)))
+
+    return Object.keys(localiteGroups).sort((a, b) => {
+      const orderA = orderMap.get(a) ?? 999
+      const orderB = orderMap.get(b) ?? 999
+      return orderA - orderB || a.localeCompare(b)
+    })
+  }, [localiteGroups, niveauxConfig])
+
   const [activeLocaliteTab, setActiveLocaliteTab] = useState<string>(availableTabs[0] || '')
 
   if (!activeLocaliteTab && availableTabs.length > 0) {

@@ -6,6 +6,7 @@ import type { Localite } from '@/types/localite'
 
 interface LocaliteGroupProps {
   groupName: string
+  levelRank?: number
   locs: Localite[]
   isOpen: boolean
   selectedLocaliteIds: Set<number>
@@ -16,6 +17,7 @@ interface LocaliteGroupProps {
 
 export function LocaliteGroup({
   groupName,
+  levelRank,
   locs,
   isOpen,
   selectedLocaliteIds,
@@ -28,25 +30,34 @@ export function LocaliteGroup({
   const filteredLocs = useMemo(() => {
     if (!localSearch.trim()) return locs
     const lower = localSearch.toLowerCase()
-    return locs.filter(l => l.intitule_loca?.toLowerCase().includes(lower))
+    return locs.filter(
+      (l) =>
+        l.intitule_loca?.toLowerCase().includes(lower) ||
+        l.code_loca?.toLowerCase().includes(lower) ||
+        (typeof l.parent_loca === 'object' &&
+          l.parent_loca?.intitule_loca?.toLowerCase().includes(lower))
+    )
   }, [locs, localSearch])
 
-  const validLocs = filteredLocs.filter((l) => l.latitude_loca != null && l.longitude_loca != null)
+  const validLocs = filteredLocs.filter(
+    (l) =>
+      (l.latitude_loca != null && l.longitude_loca != null) ||
+      (l.shape_file != null && l.shape_file !== 'null' && String(l.shape_file).trim() !== '')
+  )
   const selectedCount = locs.filter((l) => selectedLocaliteIds.has(l.id_loca)).length
   const allSelected = validLocs.length > 0 && validLocs.every((l) => selectedLocaliteIds.has(l.id_loca))
 
   const handleGroupSelection = (e: React.MouseEvent) => {
     e.stopPropagation()
-    // toggleGroupSelection takes the filtered items if we want "Tout sélectionner" to apply only to the searched elements.
     toggleGroupSelection(e, filteredLocs)
   }
 
   return (
-    <div className="rounded-lg overflow-hidden border border-white/10">
+    <div className="rounded-lg overflow-hidden border border-white/10 bg-white/[0.02]">
       {/* Header collapsible */}
       <div
         onClick={() => toggleGroup(groupName)}
-        className="w-full flex items-center justify-between px-3 py-2 bg-black/20 hover:bg-black/30 transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between px-3 py-2 bg-black/25 hover:bg-black/35 transition-colors cursor-pointer"
       >
         <div className="flex items-center gap-2 min-w-0">
           <ChevronDown
@@ -55,13 +66,19 @@ export function LocaliteGroup({
               isOpen && 'rotate-180'
             )}
           />
-          <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider truncate">
+          <span className="text-[11px] font-bold text-white/90 uppercase tracking-wider truncate">
             {groupName}
           </span>
+          {levelRank != null && levelRank < 900 && (
+            <span className="text-[9px] font-semibold text-amber-300 bg-amber-400/20 px-1.5 py-0.5 rounded border border-amber-400/30 shrink-0">
+              Niv. {levelRank}
+            </span>
+          )}
           <span className="text-[10px] text-white/40 shrink-0">
             {selectedCount}/{locs.length}
           </span>
         </div>
+
         {/* Bouton tout sélectionner/désélectionner */}
         <button
           onClick={handleGroupSelection}
@@ -70,7 +87,7 @@ export function LocaliteGroup({
           title={allSelected ? 'Tout désélectionner' : 'Tout sélectionner'}
         >
           {allSelected ? (
-            <CheckSquare className="w-3.5 h-3.5 text-[#CE1126]" />
+            <CheckSquare className="w-3.5 h-3.5 text-[#FCD116]" />
           ) : (
             <Square className="w-3.5 h-3.5 text-white/40" />
           )}
@@ -89,12 +106,16 @@ export function LocaliteGroup({
                 value={localSearch}
                 onChange={(e) => setLocalSearch(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full bg-white/5 border border-white/10 rounded pl-7 pr-2 py-1 text-[11px] text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-[#CE1126] transition-shadow"
+                className="w-full bg-white/5 border border-white/10 rounded pl-7 pr-2 py-1 text-[11px] text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-[#FCD116] transition-shadow"
               />
             </div>
           )}
-          
-          {filteredLocs.length === 0 ? (
+
+          {locs.length === 0 ? (
+            <div className="text-[10px] text-white/40 italic px-3 py-2 text-center">
+              Aucune localité configurée dans ce niveau
+            </div>
+          ) : filteredLocs.length === 0 ? (
             <div className="text-[10px] text-white/40 italic px-2 py-1">Aucune correspondance</div>
           ) : (
             <div className="space-y-0.5">

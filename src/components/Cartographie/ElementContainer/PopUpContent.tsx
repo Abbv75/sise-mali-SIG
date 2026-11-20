@@ -5,6 +5,19 @@ interface PopUpContentProps {
   selectedFields?: string[]
 }
 
+function formatPopUpValue(val: unknown): string {
+  if (val == null) return '—'
+  if (typeof val === 'object') {
+    const obj = val as Record<string, unknown>
+    if (obj.libelle_nlc) return String(obj.libelle_nlc)
+    if (obj.intitule_loca) return String(obj.intitule_loca)
+    if (obj.nom_zone) return String(obj.nom_zone)
+    if (obj.nom_ugl) return String(obj.nom_ugl)
+    return '—'
+  }
+  return String(val)
+}
+
 /**
  * Contenu de la popup Leaflet — style SISE-Mali (tailwind)
  */
@@ -24,7 +37,7 @@ export function PopUpContent({ popUpData, selectedFields }: PopUpContentProps) {
             {item.label}
           </span>
           <span className="text-xs font-medium text-gray-800 mt-0.5">
-            {item.value != null ? String(item.value) : '—'}
+            {formatPopUpValue(item.value)}
           </span>
         </div>
       ))}

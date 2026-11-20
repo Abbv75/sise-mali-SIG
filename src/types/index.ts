@@ -56,6 +56,8 @@ export interface ProcessedPoint {
 // ─── Constante fieldKeyListe pour Localités ───────────────────────────────────
 export const LOCALITE_FIELD_KEYS: FieldKey[] = [
   { originaleName: 'intitule_loca', renamed: 'Localité' },
+  { originaleName: 'niveau_loca', renamed: 'Niveau territorial' },
+  { originaleName: 'parent_loca', renamed: 'Rattaché à' },
   { originaleName: 'code_loca', renamed: 'Code' },
   { originaleName: 'code_national_loca', renamed: 'Code national' },
 ]
