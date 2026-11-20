@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { GeoJSON, Tooltip, Pane, Marker } from 'react-leaflet'
+import { Tooltip, Pane, Marker } from 'react-leaflet'
+import { AsyncShapefileLayer } from '@/components/Cartographie/AsyncShapefileLayer'
 import { useZoneStore } from '@/stores/zone/useZoneStore'
 import { useMapStore } from '@/stores/map/useMapStore'
 import { useIconStore } from '@/stores/iconMap/useIconMapStore'
@@ -9,6 +10,7 @@ import { createCustomMapIcon } from '@/components/CustomMapIcon'
 /**
  * Feature autonome — Affichage des zones de collecte sur la carte.
  * Lit les données via React Query et le store Zustand, aucun prop nécessaire.
+ * Prend en charge les shapefiles au format .zip et les marqueurs points.
  */
 export function ZoneElement() {
   const { data: zonesRaw = [] } = useGetZonesCollecte()
@@ -29,13 +31,16 @@ export function ZoneElement() {
     <>
       {activeZones.map((zone) => {
         const elementId = `zone-${zone.id_zone_collecte}`
-        
+
         let orderIndex = elementOrder.indexOf(elementId)
         if (orderIndex === -1) orderIndex = 99
         // index 0 is visually at the top, so highest zIndex
         const zIndex = 1000 - orderIndex * 10
 
-        const hasShapefile = zone.shape_file != null && zone.shape_file !== 'null' && (zone.shape_file as string).trim() !== ''
+        const hasShapefile =
+          zone.shape_file != null &&
+          zone.shape_file !== 'null' &&
+          String(zone.shape_file).trim() !== ''
         const style = resolveStyle('zones', elementId)
         const isShapeMode = style.displayMode === 'shape' && hasShapefile
 
@@ -49,16 +54,16 @@ export function ZoneElement() {
         return (
           <Pane key={elementId} name={elementId} style={{ zIndex }}>
             {isShapeMode ? (
-              <GeoJSON
-                data={JSON.parse(zone.shape_file as string)}
+              <AsyncShapefileLayer
+                shapeFile={zone.shape_file as string}
                 style={shapeStyle}
               >
                 <Tooltip>
                   <div className="font-semibold text-sm">{zone.nom_zone}</div>
                   <div className="text-xs text-gray-500">{zone.type_zone}</div>
                 </Tooltip>
-              </GeoJSON>
-            ) : (zone.latitude_zone != null && zone.longitude_zone != null) ? (
+              </AsyncShapefileLayer>
+            ) : zone.latitude_zone != null && zone.longitude_zone != null ? (
               <Marker
                 position={[zone.latitude_zone, zone.longitude_zone]}
                 icon={createCustomMapIcon(
@@ -73,6 +78,16 @@ export function ZoneElement() {
                   <div className="text-xs text-gray-500">{zone.type_zone}</div>
                 </Tooltip>
               </Marker>
+            ) : hasShapefile ? (
+              <AsyncShapefileLayer
+                shapeFile={zone.shape_file as string}
+                style={shapeStyle}
+              >
+                <Tooltip>
+                  <div className="font-semibold text-sm">{zone.nom_zone}</div>
+                  <div className="text-xs text-gray-500">{zone.type_zone}</div>
+                </Tooltip>
+              </AsyncShapefileLayer>
             ) : null}
           </Pane>
         )
