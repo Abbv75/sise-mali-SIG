@@ -12,12 +12,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/api-sise-mali': {
-        target: 'https://api.sise-mali.net.net',
+        target: 'https://api.sise-mali.net',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api-sise-mali/, ''),
       },
       '/api-simandou': {
-        target: 'https://api.sise-mali.net.net',
+        target: 'https://api.sise-mali.net',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api-simandou/, ''),
       },

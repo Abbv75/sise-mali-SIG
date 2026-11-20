@@ -8,7 +8,7 @@ const API_CONFIG = {
       import.meta.env.VITE_API_URL ||
       import.meta.env.VITE_SISE_MALI_API_URL ||
       import.meta.env.VITE_SIMANDOU_API_URL ||
-      'https://api.sise-mali.net.net',
+      'https://api.sise-mali.net',
   },
   simandou: {
     proxy: '/api-sise-mali',
@@ -16,7 +16,7 @@ const API_CONFIG = {
       import.meta.env.VITE_API_URL ||
       import.meta.env.VITE_SISE_MALI_API_URL ||
       import.meta.env.VITE_SIMANDOU_API_URL ||
-      'https://api.sise-mali.net.net',
+      'https://api.sise-mali.net',
   },
 }
 
