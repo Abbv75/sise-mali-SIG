@@ -11,6 +11,8 @@ export interface LegendeItemData {
   id: string
   label: string
   type: 'zones' | 'localites' | 'ugls'
+  hasShape?: boolean
+  hasCoords?: boolean
 }
 
 export function useLegendeSection() {
@@ -30,13 +32,42 @@ export function useLegendeSection() {
 
     zonesRaw.forEach(z => {
       if (selectedZoneIds.has(z.id_zone_collecte)) {
-        items.push({ id: `zone-${z.id_zone_collecte}`, label: z.nom_zone, type: 'zones' })
+        const hasShape = Boolean(
+          z.shape_file && z.shape_file !== 'null' && String(z.shape_file).trim() !== ''
+        )
+        const hasCoords =
+          z.latitude_zone != null &&
+          z.longitude_zone != null &&
+          String(z.latitude_zone).trim() !== '' &&
+          String(z.longitude_zone).trim() !== '' &&
+          z.latitude_zone !== 'null' &&
+          z.longitude_zone !== 'null' &&
+          !isNaN(Number(z.latitude_zone)) &&
+          !isNaN(Number(z.longitude_zone))
+
+        items.push({
+          id: `zone-${z.id_zone_collecte}`,
+          label: z.nom_zone,
+          type: 'zones',
+          hasShape,
+          hasCoords,
+        })
       }
     })
     
     localitesRaw.forEach(l => {
       if (selectedLocaliteIds.has(l.id_loca)) {
-        items.push({ id: `localites-${l.id_loca}`, label: l.intitule_loca, type: 'localites' })
+        const hasShape = Boolean(
+          l.shape_file && l.shape_file !== 'null' && String(l.shape_file).trim() !== ''
+        )
+        const hasCoords = l.latitude_loca != null && l.longitude_loca != null
+        items.push({
+          id: `localites-${l.id_loca}`,
+          label: l.intitule_loca,
+          type: 'localites',
+          hasShape,
+          hasCoords,
+        })
       }
     })
 

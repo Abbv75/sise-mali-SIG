@@ -80,6 +80,9 @@ interface WorkerInput {
     } else if (item.latitude_loca != null && item.longitude_loca != null) {
       lat = parseFloat(String(item.latitude_loca))
       lng = parseFloat(String(item.longitude_loca))
+    } else if (item.latitude_zone != null && item.longitude_zone != null) {
+      lat = parseFloat(String(item.latitude_zone))
+      lng = parseFloat(String(item.longitude_zone))
     } else {
       // Pas de coordonnées disponibles, on ignore ce point.
       return

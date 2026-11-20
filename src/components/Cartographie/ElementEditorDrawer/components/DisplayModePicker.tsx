@@ -1,23 +1,37 @@
 interface DisplayModePickerProps {
   isShapeMode: boolean
   hasShapefile: boolean
+  hasCoords?: boolean
   editingId: string
   setElementStyle: (id: string, style: any) => void
 }
 
-export function DisplayModePicker({ isShapeMode, hasShapefile, editingId, setElementStyle }: DisplayModePickerProps) {
+export function DisplayModePicker({
+  isShapeMode,
+  hasShapefile,
+  hasCoords = true,
+  editingId,
+  setElementStyle,
+}: DisplayModePickerProps) {
   return (
     <div>
-      <div className="text-[11px] text-white/70 uppercase font-bold mb-2 flex justify-between">
+      <div className="text-[11px] text-white/70 uppercase font-bold mb-2 flex justify-between items-center">
         <span>Mode d'affichage</span>
         {!hasShapefile && <span className="text-white/40 italic normal-case">Shapefile indisponible</span>}
+        {hasShapefile && !hasCoords && <span className="text-white/40 italic normal-case">Point indisponible</span>}
+        {hasShapefile && hasCoords && (
+          <span className="text-emerald-300/80 text-[10px] font-medium normal-case">
+            Forme & Point disponibles
+          </span>
+        )}
       </div>
       <div className="flex bg-black/20 p-1 rounded-md">
         <button
+          disabled={!hasCoords}
           onClick={() => setElementStyle(editingId, { displayMode: 'point' })}
           className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors ${
-            !isShapeMode ? 'bg-white/20 text-white shadow' : 'text-white/60 hover:text-white'
-          }`}
+            !isShapeMode ? 'bg-white/20 text-white shadow' : 'text-white/60 hover:text-white disabled:hover:text-white/40'
+          } ${!hasCoords ? 'opacity-30 cursor-not-allowed' : ''}`}
         >
           Point
         </button>

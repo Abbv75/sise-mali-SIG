@@ -23,6 +23,7 @@ export function useElementEditorDrawer() {
   const style = editingId ? resolveStyle(layer, editingId) : null
 
   let hasShapefile = false
+  let hasCoords = false
   if (layer === 'localites' && editingId) {
     const id = parseInt(editingId.replace('localites-', ''), 10)
     const loc = localitesRaw.find((l) => l.id_loca === id)
@@ -30,6 +31,11 @@ export function useElementEditorDrawer() {
       hasShapefile = Boolean(
         loc.shape_file && loc.shape_file !== 'null' && String(loc.shape_file).trim() !== ''
       )
+      hasCoords =
+        loc.latitude_loca != null &&
+        loc.longitude_loca != null &&
+        !isNaN(Number(loc.latitude_loca)) &&
+        !isNaN(Number(loc.longitude_loca))
     }
   } else if (layer === 'zones' && editingId) {
     const id = parseInt(editingId.replace('zone-', ''), 10)
@@ -38,6 +44,15 @@ export function useElementEditorDrawer() {
       hasShapefile = Boolean(
         z.shape_file && z.shape_file !== 'null' && String(z.shape_file).trim() !== ''
       )
+      hasCoords =
+        z.latitude_zone != null &&
+        z.longitude_zone != null &&
+        String(z.latitude_zone).trim() !== '' &&
+        String(z.longitude_zone).trim() !== '' &&
+        z.latitude_zone !== 'null' &&
+        z.longitude_zone !== 'null' &&
+        !isNaN(Number(z.latitude_zone)) &&
+        !isNaN(Number(z.longitude_zone))
     }
   }
 
@@ -57,6 +72,7 @@ export function useElementEditorDrawer() {
     style,
     layer,
     hasShapefile,
+    hasCoords,
     isShapeMode,
     applyToLayer,
     onClose,

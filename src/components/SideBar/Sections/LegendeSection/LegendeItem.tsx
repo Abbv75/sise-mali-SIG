@@ -11,9 +11,13 @@ export function LegendeItem({ item }: LegendeItemProps) {
   const style = resolveStyle(item.type, item.id)
   const Icon = ICON_OPTIONS[style.iconName as keyof typeof ICON_OPTIONS] || ICON_OPTIONS['map-pin']
   
+  // Si l'élément n'a pas de shapefile ou s'il a été configuré en point
+  const isActualShape =
+    (item.hasShape ?? true) && (style.displayMode === 'shape' || !(item.hasCoords ?? true))
+
   return (
     <div className="flex items-center gap-3 px-2 py-1.5 bg-white/5 border border-white/10 rounded-lg">
-      {style.displayMode === 'shape' ? (
+      {isActualShape ? (
         <div 
           className="rounded-sm shrink-0"
           style={{ 

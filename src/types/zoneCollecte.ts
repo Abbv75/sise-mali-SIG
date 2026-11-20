@@ -2,8 +2,10 @@ export interface ZoneCollecte {
   id_zone_collecte: number
   code_zone: string
   nom_zone: string
-  shape_file?: File
-  type_zone: string
+  shape_file?: string | File | null
+  latitude_zone?: number | string | null
+  longitude_zone?: number | string | null
+  type_zone: string | number
 }
 
 export interface ZoneCollecteTable {
@@ -11,8 +13,8 @@ export interface ZoneCollecteTable {
   code_zone: string
   nom_zone: string
   shape_file?: string | null
-  longitude_zone?: number | null
-  latitude_zone?: number | null
+  latitude_zone?: number | string | null
+  longitude_zone?: number | string | null
   type_zone: string | number
 }
 

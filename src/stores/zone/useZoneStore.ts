@@ -29,16 +29,21 @@ export const useZoneStore = create<ZoneStoreState>((set) => ({
 
   toggleAllZones: (zoneIds, forceState) => {
     set((state) => {
+      const next = new Set(state.selectedZoneIds)
+
       if (forceState === true) {
-        return { selectedZoneIds: new Set(zoneIds) }
+        zoneIds.forEach((id) => next.add(id))
+      } else if (forceState === false) {
+        zoneIds.forEach((id) => next.delete(id))
+      } else {
+        const allSelected = zoneIds.length > 0 && zoneIds.every((id) => next.has(id))
+        zoneIds.forEach((id) => {
+          if (allSelected) next.delete(id)
+          else next.add(id)
+        })
       }
-      if (forceState === false) {
-        return { selectedZoneIds: new Set() }
-      }
-      const allSelected = state.selectedZoneIds.size === zoneIds.length
-      return {
-        selectedZoneIds: allSelected ? new Set() : new Set(zoneIds),
-      }
+
+      return { selectedZoneIds: next }
     })
   }
 }))

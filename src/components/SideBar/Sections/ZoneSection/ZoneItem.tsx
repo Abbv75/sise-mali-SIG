@@ -11,11 +11,20 @@ interface ZoneItemProps {
 }
 
 export function ZoneItem({ zone, isSelected, toggleZone }: ZoneItemProps) {
-  const hasShapefile =
+  const hasShapefile = Boolean(
     zone.shape_file != null &&
     zone.shape_file !== 'null' &&
     String(zone.shape_file).trim() !== ''
-  const hasCoords = zone.latitude_zone != null && zone.longitude_zone != null
+  )
+  const hasCoords =
+    zone.latitude_zone != null &&
+    zone.longitude_zone != null &&
+    String(zone.latitude_zone).trim() !== '' &&
+    String(zone.longitude_zone).trim() !== '' &&
+    zone.latitude_zone !== 'null' &&
+    zone.longitude_zone !== 'null' &&
+    !isNaN(Number(zone.latitude_zone)) &&
+    !isNaN(Number(zone.longitude_zone))
   const isValid = hasShapefile || hasCoords
   const elementId = `zone-${zone.id_zone_collecte}`
 
@@ -41,11 +50,20 @@ export function ZoneItem({ zone, isSelected, toggleZone }: ZoneItemProps) {
           />
           <div className="flex-1 min-w-0 text-xs font-medium text-white/95 truncate">
             <div className="truncate font-medium">{zone.nom_zone}</div>
-            {zone.type_zone && (
-              <div className="text-[10px] text-white/50 truncate font-normal leading-tight mt-0.5">
-                Type : {zone.type_zone}
-              </div>
-            )}
+            <div className="text-[10px] text-white/50 truncate font-normal leading-tight mt-0.5">
+              {zone.code_zone && <span>Code : {zone.code_zone}</span>}
+              {zone.code_zone && zone.type_zone != null && <span> • </span>}
+              {zone.type_zone != null && <span>Type : {zone.type_zone}</span>}
+              {hasShapefile && hasCoords && (
+                <span className="ml-1 text-emerald-300/80 font-medium">• Forme & Point</span>
+              )}
+              {hasShapefile && !hasCoords && (
+                <span className="ml-1 text-sky-300/80 font-medium">• Forme</span>
+              )}
+              {!hasShapefile && hasCoords && (
+                <span className="ml-1 text-amber-300/80 font-medium">• Point</span>
+              )}
+            </div>
           </div>
           {!isValid && (
             <span

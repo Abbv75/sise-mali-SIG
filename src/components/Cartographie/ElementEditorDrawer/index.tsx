@@ -12,6 +12,7 @@ export function ElementEditorDrawer() {
     editingId,
     style,
     hasShapefile,
+    hasCoords,
     isShapeMode,
     applyToLayer,
     onClose,
@@ -33,10 +34,11 @@ export function ElementEditorDrawer() {
           PreviewIcon={PreviewIcon} 
         />
 
-        {hasShapefile && (
+        {(hasShapefile || hasCoords) && (
           <DisplayModePicker
             isShapeMode={isShapeMode}
             hasShapefile={hasShapefile}
+            hasCoords={hasCoords}
             editingId={editingId}
             setElementStyle={setElementStyle}
           />

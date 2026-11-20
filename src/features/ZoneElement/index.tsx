@@ -37,7 +37,15 @@ export function ZoneElement() {
       const hasShapefile = Boolean(
         zone.shape_file && zone.shape_file !== 'null' && String(zone.shape_file).trim() !== ''
       )
-      const hasCoords = zone.latitude_zone != null && zone.longitude_zone != null
+      const hasCoords =
+        zone.latitude_zone != null &&
+        zone.longitude_zone != null &&
+        String(zone.latitude_zone).trim() !== '' &&
+        String(zone.longitude_zone).trim() !== '' &&
+        zone.latitude_zone !== 'null' &&
+        zone.longitude_zone !== 'null' &&
+        !isNaN(Number(zone.latitude_zone)) &&
+        !isNaN(Number(zone.longitude_zone))
 
       if (hasShapefile && (style.displayMode === 'shape' || !hasCoords)) {
         shapeList.push(zone)
@@ -77,7 +85,10 @@ export function ZoneElement() {
               <Tooltip>
                 <div className="font-semibold text-sm">{zone.nom_zone}</div>
                 <div className="text-xs text-amber-500 font-medium">Zone agro-écologique</div>
-                {zone.type_zone && (
+                {zone.code_zone && (
+                  <div className="text-[11px] text-gray-500">Code : {zone.code_zone}</div>
+                )}
+                {zone.type_zone != null && (
                   <div className="text-[11px] text-gray-500">Type : {zone.type_zone}</div>
                 )}
               </Tooltip>
@@ -95,7 +106,7 @@ export function ZoneElement() {
         elementStylesMap={elementStyles}
         elementOrder={elementOrder}
         idField="id_zone_collecte"
-        layerKey="zones"
+        layerKey="zone"
         tooltipField="nom_zone"
       />
     </>

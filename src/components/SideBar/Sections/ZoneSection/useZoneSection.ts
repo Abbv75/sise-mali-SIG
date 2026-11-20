@@ -13,19 +13,39 @@ export function useZoneSection() {
   const filteredZones = useMemo(() => {
     if (!searchTerm.trim()) return zonesRaw
     const lower = searchTerm.toLowerCase()
-    return zonesRaw.filter((z) => z.nom_zone?.toLowerCase().includes(lower))
+    return zonesRaw.filter(
+      (z) =>
+        z.nom_zone?.toLowerCase().includes(lower) ||
+        z.code_zone?.toLowerCase().includes(lower) ||
+        String(z.type_zone)?.toLowerCase().includes(lower)
+    )
   }, [zonesRaw, searchTerm])
 
-  const validZones = zonesRaw.filter(
-    (z) =>
-      Boolean(z.shape_file && z.shape_file !== 'null' && String(z.shape_file).trim() !== '') ||
-      (z.latitude_zone != null && z.longitude_zone != null)
-  )
+  const filteredValidZones = useMemo(() => {
+    return filteredZones.filter((z) => {
+      const hasShapefile = Boolean(
+        z.shape_file && z.shape_file !== 'null' && String(z.shape_file).trim() !== ''
+      )
+      const hasCoords =
+        z.latitude_zone != null &&
+        z.longitude_zone != null &&
+        String(z.latitude_zone).trim() !== '' &&
+        String(z.longitude_zone).trim() !== '' &&
+        z.latitude_zone !== 'null' &&
+        z.longitude_zone !== 'null' &&
+        !isNaN(Number(z.latitude_zone)) &&
+        !isNaN(Number(z.longitude_zone))
+
+      return hasShapefile || hasCoords
+    })
+  }, [filteredZones])
+
   const allZonesSelected =
-    validZones.length > 0 && validZones.every((z) => selectedZoneIds.has(z.id_zone_collecte))
+    filteredValidZones.length > 0 &&
+    filteredValidZones.every((z) => selectedZoneIds.has(z.id_zone_collecte))
 
   const handleToggleAll = () => {
-    const zoneIds = validZones.map((z) => z.id_zone_collecte)
+    const zoneIds = filteredValidZones.map((z) => z.id_zone_collecte)
     toggleAllZones(zoneIds, !allZonesSelected)
   }
 
@@ -39,6 +59,6 @@ export function useZoneSection() {
     filteredZones,
     allZonesSelected,
     handleToggleAll,
-    hasValidZones: validZones.length > 0,
+    hasValidZones: filteredValidZones.length > 0,
   }
 }
