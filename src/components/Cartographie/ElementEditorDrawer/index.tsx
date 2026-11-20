@@ -23,7 +23,7 @@ export function ElementEditorDrawer() {
   const PreviewIcon = ICON_OPTIONS[style.iconName as keyof typeof ICON_OPTIONS] || ICON_OPTIONS['map-pin']
 
   return (
-    <div className="absolute top-0 right-0 h-full w-[350px] bg-slate-900 text-white shadow-2xl z-[100] flex flex-col border-l border-white/20 transition-transform duration-300 ease-in-out translate-x-0 animate-in slide-in-from-right-8 fade-in-0">
+    <div className="absolute top-0 right-0 h-full w-[350px] bg-[#008d5b] text-white shadow-2xl z-[100] flex flex-col border-l border-white/15 transition-transform duration-300 ease-in-out translate-x-0 animate-in slide-in-from-right-8 fade-in-0">
       <DrawerHeader onClose={onClose} />
 
       <div className="flex-1 overflow-y-auto carto-panel-scroll p-4 space-y-6">

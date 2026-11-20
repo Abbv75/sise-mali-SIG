@@ -1,5 +1,6 @@
 import { useIconStore } from '@/stores/iconMap/useIconMapStore'
 import { useGetLocalites } from '@/services/localiteService'
+import { useGetZonesCollecte } from '@/services/zoneService'
 
 export function useElementEditorDrawer() {
   const editingId = useIconStore((state) => state.editingId)
@@ -13,9 +14,11 @@ export function useElementEditorDrawer() {
   const resolveStyle = useIconStore((state) => state.resolveStyle)
 
   const { data: localitesRaw = [] } = useGetLocalites()
+  const { data: zonesRaw = [] } = useGetZonesCollecte()
 
-  let layer: 'localites' | 'ugls' = 'localites'
-  if (editingId?.startsWith('ugl-')) layer = 'ugls'
+  let layer: 'localites' | 'zones' | 'ugls' = 'localites'
+  if (editingId?.startsWith('zone-')) layer = 'zones'
+  else if (editingId?.startsWith('ugl-')) layer = 'ugls'
 
   const style = editingId ? resolveStyle(layer, editingId) : null
 
@@ -26,6 +29,14 @@ export function useElementEditorDrawer() {
     if (loc) {
       hasShapefile = Boolean(
         loc.shape_file && loc.shape_file !== 'null' && String(loc.shape_file).trim() !== ''
+      )
+    }
+  } else if (layer === 'zones' && editingId) {
+    const id = parseInt(editingId.replace('zone-', ''), 10)
+    const z = zonesRaw.find((zone) => zone.id_zone_collecte === id)
+    if (z) {
+      hasShapefile = Boolean(
+        z.shape_file && z.shape_file !== 'null' && String(z.shape_file).trim() !== ''
       )
     }
   }

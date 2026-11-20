@@ -13,6 +13,18 @@ export const DEFAULT_STYLE: MapElementStyle = {
   borderWeight: 2,
 }
 
+export const DEFAULT_ZONE_STYLE: MapElementStyle = {
+  iconName: 'layers',
+  color: '#000000',
+  bgColor: '#FCD116',
+  size: 28,
+  displayMode: 'shape',
+  fillColor: '#FCD116',
+  fillOpacity: 0.25,
+  borderColor: '#D4AC0D',
+  borderWeight: 2,
+}
+
 export const DEFAULT_UGL_STYLE: MapElementStyle = {
   iconName: 'building',
   color: '#ffffff',
@@ -22,7 +34,7 @@ export const DEFAULT_UGL_STYLE: MapElementStyle = {
 }
 
 // Styles par couche (s'applique à tous les éléments de la couche si pas d'override individuel)
-type LayerKey = 'localites' | 'ugls'
+type LayerKey = 'localites' | 'zones' | 'ugls'
 
 interface IconStoreState {
   set: {
@@ -57,6 +69,7 @@ export const useIconStore = create<IconStoreState>((set, get) => ({
 
   layerStyles: {
     localites: DEFAULT_STYLE,
+    zones: DEFAULT_ZONE_STYLE,
     ugls: DEFAULT_UGL_STYLE,
   },
 
@@ -78,14 +91,23 @@ export const useIconStore = create<IconStoreState>((set, get) => ({
     set((state) => ({
       layerStyles: {
         ...state.layerStyles,
-        [layer]: layer === 'ugls' ? DEFAULT_UGL_STYLE : DEFAULT_STYLE,
+        [layer]:
+          layer === 'zones'
+            ? DEFAULT_ZONE_STYLE
+            : layer === 'ugls'
+              ? DEFAULT_UGL_STYLE
+              : DEFAULT_STYLE,
       },
     }))
   },
 
   setElementStyle: (elementId, style) => {
     set((state) => {
-      const layer: LayerKey = elementId.startsWith('ugl-') ? 'ugls' : 'localites'
+      const layer: LayerKey = elementId.startsWith('zone-')
+        ? 'zones'
+        : elementId.startsWith('ugl-')
+          ? 'ugls'
+          : 'localites'
       const base = state.elementStyles[elementId] || state.layerStyles[layer]
       return {
         elementStyles: {

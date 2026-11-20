@@ -6,7 +6,7 @@ interface DrawerHeaderProps {
 
 export function DrawerHeader({ onClose }: DrawerHeaderProps) {
   return (
-    <div className="flex items-center justify-between p-4 border-b border-white/10 bg-black/10">
+    <div className="flex items-center justify-between p-4 border-b border-white/15 bg-[#007e52]">
       <h2 className="text-sm font-bold uppercase tracking-wider">Personnalisation</h2>
       <button 
         onClick={onClose}

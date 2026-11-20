@@ -43,7 +43,11 @@ export function LegendeItem({ item }: LegendeItemProps) {
           {item.label}
         </span>
         <span className="text-[9px] text-white/50 font-medium uppercase tracking-wider">
-          {item.type === 'ugls' ? 'UGL' : 'Localité'}
+          {item.type === 'zones'
+            ? 'Zone agro-écologique'
+            : item.type === 'ugls'
+              ? 'UGL'
+              : 'Localité'}
         </span>
       </div>
     </div>

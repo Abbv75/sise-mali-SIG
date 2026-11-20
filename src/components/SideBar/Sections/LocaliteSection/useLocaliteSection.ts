@@ -16,6 +16,7 @@ export function useLocaliteSection() {
   const { data: niveauxConfig = [], isLoading: niveauxLoading } = useGetNiveauxLocaliteConfig()
   const selectedLocaliteIds = useLocaliteStore((state) => state.selectedLocaliteIds)
   const toggleLocalite = useLocaliteStore((state) => state.toggleLocalite)
+  const toggleAllLocalites = useLocaliteStore((state) => state.toggleAllLocalites)
 
   const [openGroups, setOpenGroups] = useState<Set<string>>(new Set())
   const [searchTerm, setSearchTerm] = useState('')
@@ -126,6 +127,39 @@ export function useLocaliteSection() {
     })
   }
 
+  // Localités valides (selon la recherche active) pour le toggle global de l'accordéon
+  const filteredValidLocs = useMemo(() => {
+    let locs = localitesRaw
+    if (searchTerm.trim()) {
+      const lower = searchTerm.toLowerCase()
+      locs = localitesRaw.filter((l) => {
+        const matchName = l.intitule_loca?.toLowerCase().includes(lower)
+        const matchCode = l.code_loca?.toLowerCase().includes(lower)
+        const parentName =
+          typeof l.parent_loca === 'object' && l.parent_loca?.intitule_loca
+            ? l.parent_loca.intitule_loca.toLowerCase()
+            : ''
+        return matchName || matchCode || parentName.includes(lower)
+      })
+    }
+    return locs.filter(
+      (l) =>
+        (l.latitude_loca != null && l.longitude_loca != null) ||
+        (l.shape_file != null && l.shape_file !== 'null' && String(l.shape_file).trim() !== '')
+    )
+  }, [localitesRaw, searchTerm])
+
+  const allLocalitesSelected =
+    filteredValidLocs.length > 0 &&
+    filteredValidLocs.every((l) => selectedLocaliteIds.has(l.id_loca))
+
+  const hasValidLocalites = filteredValidLocs.length > 0
+
+  const handleToggleAll = () => {
+    const ids = filteredValidLocs.map((l) => l.id_loca)
+    toggleAllLocalites(ids, !allLocalitesSelected)
+  }
+
   return {
     localitesRaw,
     localitesLoading: localitesLoading || niveauxLoading,
@@ -137,5 +171,8 @@ export function useLocaliteSection() {
     toggleGroupSelection,
     searchTerm,
     setSearchTerm,
+    allLocalitesSelected,
+    hasValidLocalites,
+    handleToggleAll,
   }
 }

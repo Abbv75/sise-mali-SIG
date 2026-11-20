@@ -9,7 +9,7 @@ interface LocaliteStoreState {
 
   // Actions
   toggleLocalite: (id: number) => void
-  toggleAllLocalites: (forceState: boolean | undefined, allIds: number[]) => void
+  toggleAllLocalites: (ids: number[], forceState?: boolean) => void
 }
 
 export const useLocaliteStore = create<LocaliteStoreState>((set) => ({
@@ -25,18 +25,23 @@ export const useLocaliteStore = create<LocaliteStoreState>((set) => ({
     })
   },
 
-  toggleAllLocalites: (forceState, allIds) => {
+  toggleAllLocalites: (ids, forceState) => {
     set((state) => {
+      const next = new Set(state.selectedLocaliteIds)
+
       if (forceState === true) {
-        return { selectedLocaliteIds: new Set(allIds) }
+        ids.forEach((id) => next.add(id))
+      } else if (forceState === false) {
+        ids.forEach((id) => next.delete(id))
+      } else {
+        const allSelected = ids.length > 0 && ids.every((id) => next.has(id))
+        ids.forEach((id) => {
+          if (allSelected) next.delete(id)
+          else next.add(id)
+        })
       }
-      if (forceState === false) {
-        return { selectedLocaliteIds: new Set() }
-      }
-      const allSelected = state.selectedLocaliteIds.size === allIds.length
-      return {
-        selectedLocaliteIds: allSelected ? new Set() : new Set(allIds),
-      }
+
+      return { selectedLocaliteIds: next }
     })
   },
 }))

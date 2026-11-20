@@ -9,6 +9,14 @@ export interface ZUSTAND_T<T> {
 export type { NiveauLocalite } from './niveauLocalite'
 export type { Localite } from './localite'
 
+// ─── Zone agro-écologique (Zone de collecte) ──────────────────────────────────
+export type {
+  ZoneCollecteTable,
+  ZoneCollecte,
+  ZoneAgroEcologique,
+  ZoneAgroEcologiqueTable,
+} from './zoneCollecte'
+
 // ─── UGL ──────────────────────────────────────────────────────────────────────
 export type { Ugl } from './ugl'
 
@@ -57,6 +65,13 @@ export const LOCALITE_FIELD_KEYS: FieldKey[] = [
   { originaleName: 'parent_loca', renamed: 'Rattaché à' },
   { originaleName: 'code_loca', renamed: 'Code' },
   { originaleName: 'code_national_loca', renamed: 'Code national' },
+]
+
+// ─── Constante fieldKeyListe pour Zones agro-écologiques ──────────────────────
+export const ZONE_FIELD_KEYS: FieldKey[] = [
+  { originaleName: 'nom_zone', renamed: 'Zone agro-écologique' },
+  { originaleName: 'code_zone', renamed: 'Code' },
+  { originaleName: 'type_zone', renamed: 'Type' },
 ]
 
 
