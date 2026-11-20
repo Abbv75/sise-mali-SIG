@@ -5,7 +5,6 @@ import { useExportStore } from '@/stores/export/useExportStore'
 
 // Sections Content
 import { UglSection } from './Sections/UglSection'
-import { ZoneSection } from './Sections/ZoneSection'
 import { LocaliteSection } from './Sections/LocaliteSection'
 import { StatsSection } from './Sections/StatsSection'
 import { OrdreAffichageSection } from './Sections/OrdreAffichageSection'
@@ -51,7 +50,6 @@ export function SidePanel({
               <PanelSection title="Source de données" icon={Database} defaultOpen={true}>
                 <div className="pt-1 space-y-6">
                   <UglSection />
-                  <ZoneSection />
                   <LocaliteSection />
                 </div>
               </PanelSection>

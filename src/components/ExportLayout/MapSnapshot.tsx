@@ -14,7 +14,6 @@ import {
 import { useMapStore } from '@/stores/map/useMapStore'
 import { useExportStore } from '@/stores/export/useExportStore'
 import { LocaliteElement } from '@/features/LocaliteElement'
-import { ZoneElement } from '@/features/ZoneElement'
 import { UglElement } from '@/features/UglElement'
 import 'leaflet/dist/leaflet.css'
 
@@ -114,7 +113,6 @@ export function MapSnapshot({ width, height }: { width: number; height: number }
         <MaliMask />
         {!mapLocked && <ZoomControl position="topright" />}
         <UglElement />
-        <ZoneElement />
         <LocaliteElement />
       </MapContainer>
     </div>

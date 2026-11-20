@@ -9,9 +9,6 @@ export interface ZUSTAND_T<T> {
 export type { NiveauLocalite } from './niveauLocalite'
 export type { Localite } from './localite'
 
-// ─── Zone de collecte ─────────────────────────────────────────────────────────
-export type { ZoneCollecteTable, ZoneCollecte } from './zoneCollecte'
-
 // ─── UGL ──────────────────────────────────────────────────────────────────────
 export type { Ugl } from './ugl'
 
@@ -62,12 +59,7 @@ export const LOCALITE_FIELD_KEYS: FieldKey[] = [
   { originaleName: 'code_national_loca', renamed: 'Code national' },
 ]
 
-// ─── Constante fieldKeyListe pour Zones ───────────────────────────────────────
-export const ZONE_FIELD_KEYS: FieldKey[] = [
-  { originaleName: 'nom_zone', renamed: 'Zone' },
-  { originaleName: 'code_zone', renamed: 'Code' },
-  { originaleName: 'type_zone', renamed: 'Type' },
-]
+
 
 // ─── Loading state ────────────────────────────────────────────────────────────
 export type LoadingState = null | 'loading' | 'success' | 'error'

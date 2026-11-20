@@ -81,8 +81,8 @@ export function LegendWidget({ onClose }: LegendWidgetProps) {
 
   // ── Couleurs par type ─────────────────────────────────────────────────────
   const COLOR_MAP: Record<string, string> = {
-    zones: '#FCD116',
     localites: '#CE1126',
+    ugls: '#25a80b',
   }
 
   return (

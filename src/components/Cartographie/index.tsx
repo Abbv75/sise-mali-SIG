@@ -12,7 +12,6 @@ import {
   TILE_LAYERS,
 } from '@/constant'
 import { LocaliteElement } from '@/features/LocaliteElement'
-import { ZoneElement } from '@/features/ZoneElement'
 import { UglElement } from '@/features/UglElement'
 import { MinimapControl } from './MinimapControl'
 import 'leaflet/dist/leaflet.css'
@@ -103,7 +102,6 @@ export function MapPanel({ panelOpen }: MapPanelProps) {
 
         {/* Couches de données (ordre dynamique géré individuellement dans les composants) */}
         <UglElement />
-        <ZoneElement />
         <LocaliteElement />
       </MapContainer>
     </div>

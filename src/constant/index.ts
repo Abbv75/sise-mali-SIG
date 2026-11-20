@@ -60,15 +60,15 @@ export type TileLayerKey = keyof typeof TILE_LAYERS
 
 // ─── Couleurs des couches de données ─────────────────────────────────────────
 export const LAYER_COLORS = {
-  zones: {
-    fillColor: '#FCD116',
-    color: '#D4AC0D',
-    fillOpacity: 0.35,
-    weight: 2,
-  },
   localites: {
     color: '#CE1126',
-    fillColor: '#CE1126',
+    fillColor: '#FCD116',
+    fillOpacity: 0.3,
+    weight: 2,
+  },
+  ugls: {
+    color: '#25a80b',
+    fillColor: '#25a80b',
   },
 } as const
 
@@ -78,8 +78,8 @@ export const MARKER_ICONS = {
     color: '#CE1126',
     label: 'Localité',
   },
-  zone: {
-    color: '#FCD116',
-    label: 'Zone de collecte',
+  ugl: {
+    color: '#25a80b',
+    label: 'UGL',
   },
 } as const

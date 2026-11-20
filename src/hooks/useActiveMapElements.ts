@@ -1,9 +1,7 @@
 import { useMemo, useEffect } from 'react'
 import { useMapStore } from '@/stores/map/useMapStore'
-import { useZoneStore } from '@/stores/zone/useZoneStore'
 import { useLocaliteStore } from '@/stores/localite/useLocaliteStore'
 import { useUglStore } from '@/stores/ugl/useUglStore'
-import { useGetZonesCollecte } from '@/services/zoneService'
 import { useGetLocalites } from '@/services/localiteService'
 import { useGetUgl } from '@/services/uglService'
 
@@ -17,9 +15,6 @@ export function useActiveMapElements() {
   const elementOrder = useMapStore(state => state.elementOrder)
   const setElementOrder = useMapStore(state => state.setElementOrder)
 
-  const { data: zonesRaw = [] } = useGetZonesCollecte()
-  const selectedZoneIds = useZoneStore(state => state.selectedZoneIds)
-
   const { data: localitesRaw = [] } = useGetLocalites()
   const selectedLocaliteIds = useLocaliteStore(state => state.selectedLocaliteIds)
 
@@ -28,12 +23,6 @@ export function useActiveMapElements() {
 
   const activeItems = useMemo(() => {
     const items: MapElementData[] = []
-    
-    zonesRaw.forEach(z => {
-      if (selectedZoneIds.has(z.id_zone_collecte)) {
-        items.push({ id: `zone-${z.id_zone_collecte}`, label: z.nom_zone, type: 'Zone' })
-      }
-    })
     
     localitesRaw.forEach(l => {
       if (selectedLocaliteIds.has(l.id_loca)) {
@@ -48,7 +37,7 @@ export function useActiveMapElements() {
     })
     
     return items
-  }, [zonesRaw, selectedZoneIds, localitesRaw, selectedLocaliteIds, uglsRaw, selectedUglIds])
+  }, [localitesRaw, selectedLocaliteIds, uglsRaw, selectedUglIds])
 
   // Synchronisation globale de l'ordre
   useEffect(() => {
