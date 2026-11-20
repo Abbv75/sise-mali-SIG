@@ -1,32 +1,31 @@
-# React + TypeScript + Vite
+# SISE-Mali-SIG
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Plateforme de cartographie interactive et système d'information géographique (SIG) pour le projet SISE-Mali.
 
-Currently, two official plugins are available:
+## 🚀 Fonctionnalités
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Cartographie interactive Leaflet** : Navigation fluide, couches de tuiles (OSM, Satellite, Topo, Dark), masque géographique centré sur le Mali.
+- **Gestion des entités spatiales** : Localités, zones de collecte, UGL.
+- **Export personnalisé** : Génération et téléchargement de cartes sous formats PNG, PDF et Word avec annotations et légende.
+- **Intégration API réactive** : Connecté au module de suivi-évaluation avec auto-authentification et requêtage temps-réel via TanStack Query.
 
-## React Compiler
+## 🛠️ Stack technique
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework** : React 19 + TypeScript + Vite
+- **Cartographie** : Leaflet + React-Leaflet
+- **Styles & UI** : Tailwind CSS + Radix UI + Lucide React
+- **Gestion d'état** : Zustand
+- **Requêtes API** : Axios + TanStack React Query
 
-## Expanding the Oxlint configuration
+## 💻 Démarrage rapide
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+```bash
+# Installation des dépendances
+npm install
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+# Lancement en développement
+npm run dev
+
+# Compilation pour la production
+npm run build
 ```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
