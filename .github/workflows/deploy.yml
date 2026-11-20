@@ -1,0 +1,49 @@
+name: Deploy Website via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+
+    - name: ⚙️ Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: 🔨 Install dependencies and Build
+      env:
+        VITE_SIMANDOU_API_URL: "${{ secrets.VITE_SIMANDOU_API_URL }}"
+        VITE_LOGIN_ID_PERSONNEL: "${{ secrets.VITE_LOGIN_ID_PERSONNEL }}"
+        VITE_LOGIN_PASSWORD: "${{ secrets.VITE_LOGIN_PASSWORD }}"
+      run: |
+        npm ci
+        npm run build
+        chmod -R 775 ./dist/
+
+    - name: 📂 Sync files via SCP
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        source: "dist/*"
+        target: "/var/www/ruche-sectoriel.net/carto/" # <-- Chemin à vérifier
+        strip_components: 1
+
+    - name: 🔧 Set directory permissions
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          chmod -R 775 /var/www/ruche-sectoriel.net/carto/ # <-- Chemin à vérifier
