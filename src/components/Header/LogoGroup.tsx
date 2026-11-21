@@ -24,7 +24,7 @@ export function LogoGroup({ className, logoHeight = 65 }: LogoGroupProps) {
             src={logo.src}
             alt={logo.alt}
             style={{ height: logoHeight, width: 'auto' }}
-            className="object-contain max-h-[75px] drop-shadow-sm"
+            className="object-contain max-h-[75px]"
           />
         </div>
       ))}
