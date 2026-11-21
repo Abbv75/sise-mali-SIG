@@ -1,4 +1,4 @@
-import { Database, Layers, List, Printer } from 'lucide-react'
+import { Database, Layers, List, MapPin, Printer } from 'lucide-react'
 import { PanelSection } from './Components/PanelSection'
 import { PanelToggleButton } from './Components/PanelToggleButton'
 import { useExportStore } from '@/stores/export/useExportStore'
@@ -52,8 +52,11 @@ export function SidePanel({
                 <div className="pt-1 space-y-3">
                   <UglSection />
                   <ZoneSection />
-                  <LocaliteSection />
                 </div>
+              </PanelSection>
+
+              <PanelSection title="Localité administrative" icon={MapPin} defaultOpen={false}>
+                <LocaliteSection />
               </PanelSection>
 
               <PanelSection title="Ordre d'affichage" icon={Layers} defaultOpen={false}>

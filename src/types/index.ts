@@ -20,6 +20,9 @@ export type {
 // ─── UGL ──────────────────────────────────────────────────────────────────────
 export type { Ugl } from './ugl'
 
+// ─── Programme & Projet ───────────────────────────────────────────────────────
+export type { Programme, Projet, ProjetZoneLoca, ProjetType } from './programmeProjet'
+
 // ─── Style d'icône ────────────────────────────────────────────────────────────
 export interface MapElementStyle {
   // Styles pour les points (icônes)
