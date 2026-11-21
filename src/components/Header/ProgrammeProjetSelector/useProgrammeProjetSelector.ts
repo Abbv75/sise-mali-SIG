@@ -40,18 +40,18 @@ export function useProgrammeProjetSelector() {
     }
   }, [selectedProgramme, selectedProjet, projets, setSelectedProjet])
 
-  // ── Fermeture au clic à l'extérieur ─────────────────────────────────────────
+  // ── Fermeture avec la touche Échap ─────────────────────────────────────────
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
         setIsOpen(false)
       }
     }
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('keydown', handleKeyDown)
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)
     }
   }, [isOpen])
 
